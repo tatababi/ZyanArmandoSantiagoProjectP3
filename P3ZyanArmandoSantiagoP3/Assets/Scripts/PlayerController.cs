@@ -11,10 +11,12 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private bool isGrounded;
     private float horizontalInput;
-
+    private Animator anim;
+  
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -33,7 +35,15 @@ public class PlayerMovement : MonoBehaviour
 
         // 4. Flip Logic (Now with a safety check)
         FlipCharacter();
+        {
+            // Use the absolute value of horizontal input (0 to 1) 
+            // or your actual velocity to drive the animation
+            float horizontalInput = Mathf.Abs(Input.GetAxisRaw("Horizontal"));
+
+        // Update the 'Speed' parameter in the Animator
+        anim.SetFloat("Speed", horizontalInput);
     }
+}
 
     void FixedUpdate()
     {
@@ -49,4 +59,5 @@ public class PlayerMovement : MonoBehaviour
         else if (horizontalInput < -0.01f)
             transform.localScale = new Vector3(-3.611436f, 3.611436f, 3.611436f);
     }
+
 }
