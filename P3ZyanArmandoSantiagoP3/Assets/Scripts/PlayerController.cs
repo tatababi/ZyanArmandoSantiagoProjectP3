@@ -42,7 +42,11 @@ public class PlayerController : MonoBehaviour
 
         // Update the 'Speed' parameter in the Animator
         anim.SetFloat("Speed", horizontalInput);
+
+
     }
+
+
 }
 
     void FixedUpdate()

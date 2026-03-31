@@ -1,22 +1,27 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Required to change levels
+using UnityEngine.SceneManagement;
 
-public class PlayButton: MonoBehaviour
+public class PlayButton : MonoBehaviour
 {
-    // Type your level name in the Inspector (e.g., "Level1")
     public string levelToLoad;
+    public AudioClip clickSound;
 
-    // This function automatically detects clicks on 2D Colliders
+    [Range(0f, 1f)] // Creates a nice slider in the Inspector
+    public float volume = 1f;
+
     private void OnMouseDown()
     {
-        // 1. Hide the sprite
+        if (clickSound != null)
+        {
+            // The third value (volume) sets the loudness
+            AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position, volume);
+        }
+
         gameObject.SetActive(false);
 
-        // 2. Load the next level (optional)
         if (!string.IsNullOrEmpty(levelToLoad))
         {
             SceneManager.LoadScene(levelToLoad);
         }
     }
 }
- 
